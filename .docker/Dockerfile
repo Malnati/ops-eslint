@@ -34,6 +34,7 @@ RUN npm init -y >/dev/null \
 
 COPY assets/eslint.config.mjs /opt/tooling/eslint.config.mjs
 COPY assets/eslint-local-rules.mjs /opt/tooling/eslint-local-rules.mjs
+COPY assets/eslint-hardcode-sentinel.mjs /opt/tooling/eslint-hardcode-sentinel.mjs
 
 ENV ESLINT_USE_FLAT_CONFIG=true
 

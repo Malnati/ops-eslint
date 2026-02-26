@@ -9,6 +9,7 @@ GitHub Action composta para executar **ESLint Flat Config** dentro de um contain
 3. Executa ESLint usando a configuração central `eslint.config.mjs` da imagem.
 4. Gera relatório em `path/.eslint/eslint-report.json` (por padrão).
 5. Expõe outputs com status e contagem de erros/avisos.
+6. Inclui a regra local `hardcode-sentinel/no-hardcoded-strings` para detectar strings hardcoded.
 
 ## Inputs
 

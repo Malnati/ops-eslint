@@ -14,6 +14,7 @@ import testingLibrary from "eslint-plugin-testing-library";
 import jestPlugin from "eslint-plugin-jest";
 import globals from "globals";
 import customMessagesPlugin from "./eslint-local-rules.mjs";
+import hardcodeSentinel from "./eslint-hardcode-sentinel.mjs";
 
 const tsRecommendedRules = tsPlugin.configs?.recommended?.rules ?? {};
 const reactRecommendedRules = reactPlugin.configs?.recommended?.rules ?? {};
@@ -70,6 +71,7 @@ export default [
       "testing-library": testingLibrary,
       jest: jestPlugin,
       "custom-messages": customMessagesPlugin,
+      "hardcode-sentinel": hardcodeSentinel,
     },
     languageOptions: {
       parser: tsParser,
@@ -101,6 +103,7 @@ export default [
       "simple-import-sort/imports": "error",
       "simple-import-sort/exports": "error",
       "perfectionist/sort-objects": "warn",
+      "hardcode-sentinel/no-hardcoded-strings": "error",
     },
   },
   {

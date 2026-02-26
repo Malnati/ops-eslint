@@ -13,6 +13,7 @@ A action executa ESLint Flat Config em container para garantir padronização en
 3. Execução de lint com `eslint.config.mjs` central.
 4. Geração de relatório em `.eslint/eslint-report.json`.
 5. Publicação de outputs (`status`, `error_count`, `warning_count`, `report_path`).
+6. Regra local `hardcode-sentinel/no-hardcoded-strings` para detectar strings hardcoded.
 
 ## Inputs e Outputs
 

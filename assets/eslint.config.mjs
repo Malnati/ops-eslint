@@ -14,6 +14,7 @@ import jest from "eslint-plugin-jest";
 import testingLibrary from "eslint-plugin-testing-library";
 import globals from "globals";
 import customMessagesPlugin from "./eslint-local-rules.mjs";
+import hardcodeSentinel from "./eslint-hardcode-sentinel.mjs";
 
 const tsRecommendedRules = tsPlugin.configs?.recommended?.rules ?? {};
 const nestjsTypedPlugin = nestjsTyped.plugin || nestjsTyped;
@@ -49,6 +50,7 @@ export default [
       "simple-import-sort": simpleImportSort,
       perfectionist,
       prettier: prettierPlugin,
+      "hardcode-sentinel": hardcodeSentinel,
     },
     languageOptions: {
       parser: tsParser,
@@ -69,6 +71,7 @@ export default [
       "simple-import-sort/exports": "error",
       "perfectionist/sort-objects": "warn",
       "prettier/prettier": "warn",
+      "hardcode-sentinel/no-hardcoded-strings": "error",
     },
   },
 
