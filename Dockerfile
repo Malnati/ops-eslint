@@ -10,7 +10,8 @@ RUN npm init -y >/dev/null \
   && npm install --no-audit --no-fund \
     eslint \
     @eslint/js \
-    typescript-eslint \
+    @typescript-eslint/parser \
+    @typescript-eslint/eslint-plugin \
     eslint-plugin-react \
     eslint-plugin-react-hooks \
     eslint-plugin-jsx-a11y \

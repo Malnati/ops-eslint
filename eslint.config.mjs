@@ -1,5 +1,6 @@
 import eslint from "@eslint/js";
-import tseslint from "typescript-eslint";
+import tsParser from "@typescript-eslint/parser";
+import tsPlugin from "@typescript-eslint/eslint-plugin";
 import reactPlugin from "eslint-plugin-react";
 import hooksPlugin from "eslint-plugin-react-hooks";
 import jsxA11yPlugin from "eslint-plugin-jsx-a11y";
@@ -13,6 +14,7 @@ import testingLibrary from "eslint-plugin-testing-library";
 import jestPlugin from "eslint-plugin-jest";
 import globals from "globals";
 
+const tsRecommendedRules = tsPlugin.configs?.recommended?.rules ?? {};
 const reactRecommendedRules = reactPlugin.configs?.recommended?.rules ?? {};
 const reactHooksRecommendedRules = hooksPlugin.configs?.recommended?.rules ?? {};
 const jsxA11yRecommendedRules =
@@ -31,7 +33,7 @@ const jestRecommendedRules =
   {};
 const prettierRules = prettierConfig.rules ?? {};
 
-export default tseslint.config(
+export default [
   {
     ignores: [
       "**/node_modules/**",
@@ -45,10 +47,10 @@ export default tseslint.config(
     ],
   },
   eslint.configs.recommended,
-  ...tseslint.configs.recommended,
   {
     files: ["**/*.{js,cjs,mjs,jsx,ts,tsx}"],
     plugins: {
+      "@typescript-eslint": tsPlugin,
       react: reactPlugin,
       "react-hooks": hooksPlugin,
       "jsx-a11y": jsxA11yPlugin,
@@ -61,6 +63,7 @@ export default tseslint.config(
       jest: jestPlugin,
     },
     languageOptions: {
+      parser: tsParser,
       globals: {
         ...globals.browser,
         ...globals.node,
@@ -76,6 +79,7 @@ export default tseslint.config(
       react: { version: "detect" },
     },
     rules: {
+      ...tsRecommendedRules,
       ...reactRecommendedRules,
       ...reactHooksRecommendedRules,
       ...jsxA11yRecommendedRules,
@@ -97,4 +101,4 @@ export default tseslint.config(
       ...jestRecommendedRules,
     },
   },
-);
+];
