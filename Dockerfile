@@ -12,6 +12,7 @@ RUN npm init -y >/dev/null \
     @eslint/js \
     @typescript-eslint/parser \
     @typescript-eslint/eslint-plugin \
+    @typescript-eslint/utils \
     eslint-plugin-react \
     eslint-plugin-react-hooks \
     eslint-plugin-jsx-a11y \
@@ -26,6 +27,7 @@ RUN npm init -y >/dev/null \
     globals
 
 COPY eslint.config.mjs /opt/tooling/eslint.config.mjs
+COPY eslint-local-rules.mjs /opt/tooling/eslint-local-rules.mjs
 
 ENV ESLINT_USE_FLAT_CONFIG=true
 

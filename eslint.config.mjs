@@ -13,6 +13,7 @@ import perfectionist from "eslint-plugin-perfectionist";
 import testingLibrary from "eslint-plugin-testing-library";
 import jestPlugin from "eslint-plugin-jest";
 import globals from "globals";
+import customMessagesPlugin from "./eslint-local-rules.mjs";
 
 const tsRecommendedRules = tsPlugin.configs?.recommended?.rules ?? {};
 const reactRecommendedRules = reactPlugin.configs?.recommended?.rules ?? {};
@@ -32,6 +33,13 @@ const jestRecommendedRules =
   jestPlugin.configs?.recommended?.rules ??
   {};
 const prettierRules = prettierConfig.rules ?? {};
+const errorMessageCatalog = {
+  ERR_AUTH_001: {
+    raw: "Unauthorized: Token expired",
+    user: "Sua sessão expirou. Por favor, faça login novamente. Suporte: suporte@empresa.com",
+    dev: "JWT expirado no middleware de auth. Verifique o TTL do provider.",
+  },
+};
 
 export default [
   {
@@ -61,6 +69,7 @@ export default [
       perfectionist,
       "testing-library": testingLibrary,
       jest: jestPlugin,
+      "custom-messages": customMessagesPlugin,
     },
     languageOptions: {
       parser: tsParser,
@@ -92,6 +101,20 @@ export default [
       "simple-import-sort/imports": "error",
       "simple-import-sort/exports": "error",
       "perfectionist/sort-objects": "warn",
+    },
+  },
+  {
+    files: ["**/*.{ts,tsx}"],
+    plugins: {
+      "custom-messages": customMessagesPlugin,
+    },
+    rules: {
+      "custom-messages/standardize-error-messages": [
+        "error",
+        {
+          messages: errorMessageCatalog,
+        },
+      ],
     },
   },
   {
