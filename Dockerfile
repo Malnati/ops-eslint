@@ -23,6 +23,7 @@ RUN npm init -y >/dev/null \
     eslint-plugin-jsx-a11y@latest \
     eslint-plugin-nestjs-security@latest \
     @darraghor/eslint-plugin-nestjs-typed@latest \
+    prettier \
     eslint-plugin-prettier@latest \
     eslint-config-prettier@latest \
     eslint-plugin-simple-import-sort@latest \
