@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Malnati/ops-eslint</title>
+    <meta
+      name="description"
+      content="Containerized ESLint Flat Config action for TypeScript, React, and NestJS projects."
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Chivo:wght@400;700;900&family=IBM+Plex+Mono:wght@400;600&display=swap");
+
+      :root {
+        --bg: #f7f4ea;
+        --bg2: #efe8d4;
+        --ink: #1d2a2f;
+        --muted: #51626b;
+        --line: #ccd4c2;
+        --card: #fffdfa;
+        --brand: #1f7a6b;
+        --brand-soft: #d8efe9;
+        --accent: #d96f32;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background:
+          radial-gradient(1200px 500px at 10% -10%, #d6f3ea 0%, transparent 60%),
+          radial-gradient(800px 500px at 90% 0%, #ffe0c8 0%, transparent 55%),
+          linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+        font-family: "Chivo", sans-serif;
+      }
+
+      .wrap {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+
+      .hero {
+        background: linear-gradient(135deg, #ffffff 0%, #f5fbf9 100%);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 26px;
+        box-shadow: 0 14px 34px rgba(31, 42, 47, 0.08);
+      }
+
+      .tag {
+        display: inline-block;
+        border-radius: 999px;
+        padding: 5px 11px;
+        background: var(--brand-soft);
+        color: var(--brand);
+        border: 1px solid #b4ddd3;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      h1 {
+        margin: 12px 0 8px;
+        font-size: 42px;
+        line-height: 1;
+      }
+
+      h2 {
+        margin: 0 0 10px;
+        font-size: 22px;
+      }
+
+      p,
+      li,
+      td,
+      th {
+        line-height: 1.5;
+        color: var(--muted);
+      }
+
+      .grid {
+        margin-top: 16px;
+        display: grid;
+        gap: 14px;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 20px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        border: 1px solid var(--line);
+        padding: 10px;
+        text-align: left;
+      }
+
+      code,
+      pre {
+        font-family: "IBM Plex Mono", monospace;
+      }
+
+      pre {
+        margin: 0;
+        background: #122127;
+        border: 1px solid #293f47;
+        color: #dbf2f0;
+        border-radius: 10px;
+        padding: 14px;
+        overflow-x: auto;
+      }
+
+      a {
+        color: var(--brand);
+      }
+
+      .accent {
+        color: var(--accent);
+        font-weight: 700;
+      }
+
+      .footer {
+        margin-top: 16px;
+        font-size: 13px;
+      }
+
+      @media (max-width: 720px) {
+        .wrap {
+          padding: 16px;
+        }
+
+        h1 {
+          font-size: 32px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <section class="hero">
+        <span class="tag">GitHub Composite Action</span>
+        <h1>Malnati/ops-eslint</h1>
+        <p>
+          Containerized ESLint with <span class="accent">Flat Config</span> for consistent linting across
+          TypeScript, React, and NestJS projects.
+        </p>
+        <p>
+          Repository: <a href="https://github.com/Malnati/ops-eslint">github.com/Malnati/ops-eslint</a>
+        </p>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h2>How It Works</h2>
+          <ol>
+            <li>Build or reuse a tooling image with ESLint + plugins.</li>
+            <li>Mount target project path inside container.</li>
+            <li>Run ESLint using central <code>eslint.config.mjs</code>.</li>
+            <li>Write JSON report to <code>.eslint/eslint-report.json</code>.</li>
+            <li>Expose outputs: status, error_count, warning_count, report_path.</li>
+          </ol>
+        </article>
+
+        <article class="card">
+          <h2>Key Inputs</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Input</th>
+                <th>Default</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>path</code></td>
+                <td><code>.</code></td>
+                <td>Path to lint inside repository</td>
+              </tr>
+              <tr>
+                <td><code>fix</code></td>
+                <td><code>false</code></td>
+                <td>Enable ESLint auto-fix mode</td>
+              </tr>
+              <tr>
+                <td><code>fail_on_error</code></td>
+                <td><code>true</code></td>
+                <td>Fail action when lint returns non-zero</td>
+              </tr>
+              <tr>
+                <td><code>report_formatter</code></td>
+                <td><code>json</code></td>
+                <td>Formatter used to write lint report</td>
+              </tr>
+            </tbody>
+          </table>
+        </article>
+
+        <article class="card">
+          <h2>Usage</h2>
+          <pre><code>- name: Run ops-eslint
+  uses: Malnati/ops-eslint@v1
+  with:
+    path: src
+    fail_on_error: true</code></pre>
+        </article>
+      </section>
+
+      <p class="footer">MIT License.</p>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+services:
+  lint:
+    build:
+      context: .
+    image: malnati-ops-eslint:latest
+    volumes:
+      - ${PROJECT_PATH:-.}:/workspace
+      - /workspace/node_modules
+    working_dir: /workspace
+    command: ["--fix", "."]

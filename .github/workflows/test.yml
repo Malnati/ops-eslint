@@ -1,0 +1,74 @@
+name: "ESLint Action Test"
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  lint-api:
+    name: Lint fixture API
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run ESLint Action (API)
+        id: lint
+        uses: ./
+        with:
+          path: .tests/api
+          fail_on_error: false
+
+      - name: Assert API report
+        shell: bash
+        run: |
+          set -euo pipefail
+          report=".tests/api/.eslint/eslint-report.json"
+          test -f "$report"
+          node -e 'const fs=require("fs");const r=JSON.parse(fs.readFileSync(process.argv[1],"utf8"));if(!Array.isArray(r)){process.exit(1)}' "$report"
+          if [ "${{ steps.lint.outputs.status }}" != "failed" ]; then
+            echo "Expected API fixture to fail linting"
+            exit 1
+          fi
+          if [ "${{ steps.lint.outputs.error_count }}" -le 0 ]; then
+            echo "Expected API fixture to produce lint errors"
+            exit 1
+          fi
+
+  lint-react:
+    name: Lint fixture React
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run ESLint Action (React)
+        id: lint
+        uses: ./
+        with:
+          path: .tests/react
+          fail_on_error: false
+
+      - name: Assert React report
+        shell: bash
+        run: |
+          set -euo pipefail
+          report=".tests/react/.eslint/eslint-report.json"
+          test -f "$report"
+          node -e 'const fs=require("fs");const r=JSON.parse(fs.readFileSync(process.argv[1],"utf8"));if(!Array.isArray(r)){process.exit(1)}' "$report"
+          if [ "${{ steps.lint.outputs.status }}" != "failed" ]; then
+            echo "Expected React fixture to fail linting"
+            exit 1
+          fi
+          if [ "${{ steps.lint.outputs.error_count }}" -le 0 ]; then
+            echo "Expected React fixture to produce lint errors"
+            exit 1
+          fi
