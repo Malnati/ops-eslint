@@ -56,6 +56,20 @@ jobs:
           fail_on_error: true
 ```
 
+## Uso com imagem pré-construída (GHCR)
+
+A cada tag `v*`, o workflow `publish-image.yml` publica a imagem no GitHub Container Registry.
+Isso elimina o build durante a execução da action (~30s a menos):
+
+```yaml
+- name: Run ops-eslint
+  uses: Malnati/ops-eslint@v1
+  with:
+    path: src
+    build_image: false
+    image_tag: ghcr.io/malnati/ops-eslint:v1
+```
+
 ## Execução local
 
 ```bash
@@ -77,6 +91,7 @@ PROJECT_PATH=~/projects/meu-app docker compose run --rm lint
 - `eslint.config.mjs`: Flat Config centralizada
 - `assets/run.sh`: orquestra build/run do container e outputs
 - `.github/workflows/test.yml`: validação com `.tests/api` e `.tests/react`
+- `.github/workflows/publish-image.yml`: publica imagem no GHCR em cada tag
 
 ## Licença
 

@@ -84,9 +84,44 @@ echo "========================================"
 echo "  ops-eslint E2E Test Suite"
 echo "========================================"
 
+run_act_job() {
+  local workflow="$1"
+  local job="$2"
+  local name="$3"
+  local act_image="${ACT_IMAGE:-ghcr.io/catthehacker/ubuntu:act-latest}"
+
+  echo ""
+  echo -e "${YELLOW}========================================${NC}"
+  echo -e "${YELLOW}  act: $name ($workflow -> $job)${NC}"
+  echo -e "${YELLOW}========================================${NC}"
+
+  if ! command -v act >/dev/null 2>&1; then
+    echo -e "${YELLOW}[SKIP]${NC} $name - act not installed"
+    return
+  fi
+
+  local output
+  output=$(timeout 300 act push \
+    -W ".github/workflows/$workflow" \
+    -j "$job" \
+    -P "ubuntu-latest=$act_image" \
+    --artifact-server-path /tmp/act-artifacts 2>&1) || true
+
+  if echo "$output" | grep -q "Job succeeded"; then
+    echo -e "${GREEN}[PASS]${NC} $name"
+    passed=$((passed + 1))
+  else
+    echo "$output" | tail -20
+    echo -e "${RED}[FAIL]${NC} $name"
+    failed=$((failed + 1))
+  fi
+}
+
 require_docker
-run_lint_fixture ".tests/api" "E2E API"
-run_lint_fixture ".tests/react" "E2E React"
+run_lint_fixture ".tests/api" "E2E API (bash)"
+run_lint_fixture ".tests/react" "E2E React (bash)"
+run_act_job "test.yml" "lint-api" "E2E API (act)"
+run_act_job "test.yml" "lint-react" "E2E React (act)"
 
 echo ""
 echo "Passed: $passed  Failed: $failed  Total: $((passed + failed))"
