@@ -32,8 +32,8 @@ RUN npm init -y >/dev/null \
     eslint-plugin-jest@latest \
     globals
 
-COPY eslint.config.mjs /opt/tooling/eslint.config.mjs
-COPY eslint-local-rules.mjs /opt/tooling/eslint-local-rules.mjs
+COPY assets/eslint.config.mjs /opt/tooling/eslint.config.mjs
+COPY assets/eslint-local-rules.mjs /opt/tooling/eslint-local-rules.mjs
 
 ENV ESLINT_USE_FLAT_CONFIG=true
 

@@ -80,15 +80,15 @@ bash assets/run.sh --path .tests/react --fail-on-error false
 ## Docker Compose
 
 ```bash
-docker compose build
-PROJECT_PATH=~/projects/meu-app docker compose run --rm lint
+docker compose -f .docker/docker-compose.yml build
+PROJECT_PATH=~/projects/meu-app docker compose -f .docker/docker-compose.yml run --rm lint
 ```
 
 ## Arquivos principais
 
 - `action.yml`: definição da action composta
-- `Dockerfile`: imagem de tooling com ESLint e plugins
-- `eslint.config.mjs`: Flat Config centralizada
+- `.docker/Dockerfile`: imagem de tooling com ESLint e plugins
+- `assets/eslint.config.mjs`: Flat Config centralizada
 - `assets/run.sh`: orquestra build/run do container e outputs
 - `.github/workflows/test.yml`: validação com `.tests/api` e `.tests/react`
 - `.github/workflows/publish-image.yml`: publica imagem no GHCR em cada tag

@@ -1,7 +1,8 @@
 services:
   lint:
     build:
-      context: .
+      context: ..
+      dockerfile: .docker/Dockerfile
     image: malnati-ops-eslint:latest
     volumes:
       - ${PROJECT_PATH:-.}:/workspace

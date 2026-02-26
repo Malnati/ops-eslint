@@ -35,7 +35,7 @@ jobs:
 
       - name: Build image
         shell: bash
-        run: docker build -t "${{ steps.meta.outputs.image }}:${{ steps.meta.outputs.tag }}" -t "${{ steps.meta.outputs.image }}:latest" .
+        run: docker build -t "${{ steps.meta.outputs.image }}:${{ steps.meta.outputs.tag }}" -t "${{ steps.meta.outputs.image }}:latest" -f .docker/Dockerfile .
 
       - name: Push image
         shell: bash

@@ -162,7 +162,7 @@ fi
 
 if [ "$BUILD_IMAGE" = "true" ]; then
   echo "==> Building tooling image: $IMAGE_TAG"
-  docker build -t "$IMAGE_TAG" -f "$repo_root/Dockerfile" "$repo_root"
+  docker build -t "$IMAGE_TAG" -f "$repo_root/.docker/Dockerfile" "$repo_root"
 fi
 
 lint_targets=()

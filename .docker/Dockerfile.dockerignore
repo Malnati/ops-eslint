@@ -1,0 +1,4 @@
+*
+!.docker/Dockerfile
+!assets/eslint.config.mjs
+!assets/eslint-local-rules.mjs
